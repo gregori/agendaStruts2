@@ -8,8 +8,12 @@
 <title>Lista de Contatos</title>
 </head>
 <body>
-  <h2>#${mensagem ? mensagem : ''}</h2>
-  <a href="controller?action=ActionFormEditContato">Novo Contato</a>
+  <h2>
+    <s:if test="#mensagem != ''">
+      <s:property value="#mensagem"/>
+    </s:if>
+  </h2>
+  <a href="editaContato">Novo Contato</a>
   <table>
     <thead>
       <tr>
@@ -20,27 +24,46 @@
         <th colspan="2">Ações</th>
       </tr>
     </thead>
-    <c:forEach var="contato" items="${contatos}">
-  	  <tr bgcolor="#${id.count %2 == 0 ? 'aaee88' : 'ffffff' }">
-  	    <td>${contato.nome}</td>
+    <s:iterator value="contatos" status="id">
+      <s:if test="#id.even == true">
+  	  <tr bgcolor="aaee88">
+  	  </s:if>
+  	  <s:else>
+  	  <tr bgcolor="ffffff">
+  	  </s:else>
+  	    <td><s:property value="nome"/></td>
   	    <td>
-  	      <c:choose>
-			<c:when test="${not empty contato.email}">
-  			  <a href="mailto:${contato.email}">${contato.email}</a>
-			</c:when>
-			<c:otherwise>
-			  E-mail não informado
-			</c:otherwise>
-		  </c:choose>
+		  <s:if test="#email != ''">
+  			<a href="mailto:'<s:property value="email"/>'">
+  			  <s:property value="email"/>
+  			</a>
+  		  </s:if>
+  		  <s:else>
+			E-mail não informado
+		  </s:else>
 		</td>
-	    <td>${contato.endereco}</td>
+	    <td><s:property value="endereco"/></td>
 	    <td>
-	      <fmt:formatDate value="${contato.dataNascimento.time}" pattern="dd/MM/yyyy" />
+	      <s:date name="dataNascimento.time" format="dd/MM/yyyy"/>
 	    </td>
-	    <td><a href="controller?action=ActionFormEditContato&id=${contato.id}">Editar</a></td>
-	    <td><a href="controller?action=ActionRemoveContato&id=${contato.id}">Remover</a></td>
+			<s:url id="editar" action="editaContato" var="editUrl">
+				<s:param name="id">
+					<s:property value="id" />
+				</s:param>
+			</s:url>
+			<s:url id="remover" action="removeContato" var="removeUrl">
+				<s:param name="id">
+					<s:property value="id" />
+				</s:param>
+			</s:url>
+		<td>
+		  <a href='<s:property value="#editUrl"/>'>Editar</a>
+	    </td>
+	    <td>
+	      <a href='<s:property value="#removeUrl"/>'>Remover</a>
+	    </td>
   	  </tr>
-  	</c:forEach>
+  	</s:iterator>
   </table>
 </body>
 </html>
