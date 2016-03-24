@@ -1,6 +1,9 @@
 package br.eti.gregori.jdbc.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.text.ParseException;
 
 public class Contato {
 	private Long id;
@@ -38,5 +41,15 @@ public class Contato {
 	}
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+	public void setDataNascimento(String dataNascimento) {
+		try {
+			Date data = new SimpleDateFormat("dd/MM/yyyy")
+					.parse(dataNascimento);
+			this.dataNascimento = Calendar.getInstance();
+			this.dataNascimento.setTime(data);
+		} catch (ParseException e) {
+			throw new RuntimeException("Erro de conversão da data.", e);
+		}
 	}
 }

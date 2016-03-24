@@ -9,9 +9,7 @@
 </head>
 <body>
   <h2>
-    <s:if test="#mensagem != ''">
-      <s:property value="#mensagem"/>
-    </s:if>
+    <s:property value="mensagem"/>
   </h2>
   <a href="editaContato">Novo Contato</a>
   <table>
@@ -33,7 +31,7 @@
   	  </s:else>
   	    <td><s:property value="nome"/></td>
   	    <td>
-		  <s:if test="#email != ''">
+		  <s:if test="#email != null">
   			<a href="mailto:'<s:property value="email"/>'">
   			  <s:property value="email"/>
   			</a>

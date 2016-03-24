@@ -43,18 +43,20 @@ public class ContatoDao {
 	public Contato getContato(Long id) {
 		Contato contato = new Contato();
 		try {
-			PreparedStatement stmt = this.connection.prepareStatement("select * from contatos where id = ?");
+			PreparedStatement stmt = connection.prepareStatement("select * from contatos where id = ?");
 			stmt.setLong(1, id);
 			ResultSet rs = stmt.executeQuery();
 
-			contato.setId(rs.getLong("id"));
-			contato.setNome(rs.getString("nome"));
-			contato.setEmail(rs.getString("email"));
-			contato.setEndereco(rs.getString("endereco"));
+			if (rs.next()) {
+				contato.setId(rs.getLong("id"));
+				contato.setNome(rs.getString("nome"));
+				contato.setEmail(rs.getString("email"));
+				contato.setEndereco(rs.getString("endereco"));
 
-			Calendar data = Calendar.getInstance();
-			data.setTime(rs.getDate("dataNascimento"));
-			contato.setDataNascimento(data);
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataNascimento"));
+				contato.setDataNascimento(data);				
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

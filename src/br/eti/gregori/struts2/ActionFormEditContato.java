@@ -11,8 +11,16 @@ public class ActionFormEditContato {
 		return contato;
 	}
 	
+	public void setContato(Contato contato) {
+		this.contato = contato;
+	}
+	
 	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String execute() throws Exception {

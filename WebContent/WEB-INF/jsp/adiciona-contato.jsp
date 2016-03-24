@@ -16,15 +16,16 @@
     <h1>Adiciona Contatos</h1>
     <hr/>
     <s:form action="criaEditaContato" method="post">
-    	<s:textfield key="contato.nome" name="nome" />
-    	<s:textfield key="contato.email" name="email" />
-    	<s:textfield key="contato.endereco" name="endereco" label="Endereço" />
-    	<s:datetextfield label="Data de Nascimento" key="contato.dataNascimento" 
-    		name="dataNascimento" format="dd/MM/yyyy" />
+    	<s:textfield key="contato.nome" label="Nome" />
+    	<s:textfield key="contato.email" label="E-mail" />
+    	<s:textfield key="contato.endereco" label="Endereço" />
+    	<s:date name="contato.dataNascimento" var="fmtDataNascimento" format="dd/MM/yyyy" />
+    	<s:textfield label="Data de Nascimento" name="contato.dataNascimento" 
+    		value="%{#fmtDataNascimento}" />
     	<s:if test="#id != 0">
-    		<s:hidden name="id" key="contato.id" />
+    		<s:hidden key="id" />
     	</s:if>
-    	<s:submit key="submit" name="Gravar" /> 
+    	<s:submit value="Gravar" /> 
     </s:form>
   </body>
 </html>

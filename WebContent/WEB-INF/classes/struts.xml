@@ -13,5 +13,9 @@
 			method="execute">
 			<result name="success">/WEB-INF/jsp/adiciona-contato.jsp</result>
 		</action>
+		<action name="criaEditaContato" class="br.eti.gregori.struts2.ActionCreateEditContato"
+			method="execute">
+			<result name="success">/WEB-INF/jsp/lista-contatos.jsp</result>
+		</action>
 	</package>
 </struts>
