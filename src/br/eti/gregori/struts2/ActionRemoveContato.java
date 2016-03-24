@@ -9,8 +9,7 @@ import java.util.List;
 import br.eti.gregori.jdbc.dao.ContatoDao;
 import br.eti.gregori.jdbc.modelo.Contato;
 
-public class ActionCreateEditContato {
-	private Contato contato;
+public class ActionRemoveContato {
 	private String id;
 	private String mensagem;
 	private List<Contato> contatos;
@@ -23,14 +22,6 @@ public class ActionCreateEditContato {
 		return mensagem;
 	}
 	
-	public Contato getContato() {
-		return contato;
-	}
-	
-	public void setContato(Contato contato) {
-		this.contato = contato;
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -40,17 +31,16 @@ public class ActionCreateEditContato {
 	}
 	
 	public String execute() throws Exception {		
-		ContatoDao dao = new ContatoDao();	
-		
-		if ((id != null) && (!id.equals("")) && (!id.equals("0"))) {
+		ContatoDao dao = new ContatoDao();
+
+		if (id != null) {
 			Long lId = Long.parseLong(id);
+			Contato contato = new Contato();
 			contato.setId(lId);
-			dao.altera(contato);
-			
-			mensagem = "Contato alterado com sucesso.";
+			dao.remove(contato);
+			mensagem = "Contato removido com sucesso.";
 		} else {
-			dao.adiciona(contato);
-			mensagem = "Contato criado com sucesso";
+			mensagem = "Erro ao remover contato. ID não pode ser nulo.";
 		}
 		
 		contatos = dao.getLista();

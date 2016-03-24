@@ -24,14 +24,15 @@
     </thead>
     <s:iterator value="contatos" status="id">
       <s:if test="#id.even == true">
-  	  <tr bgcolor="aaee88">
+        <s:set var="bgColor" value="%{'aaee88'}" />
   	  </s:if>
   	  <s:else>
-  	  <tr bgcolor="ffffff">
+  	    <s:set var="bgColor" value="%{'ffffff'}" />
   	  </s:else>
+  	  <tr bgcolor="<s:property value="bgColor"/>">
   	    <td><s:property value="nome"/></td>
   	    <td>
-		  <s:if test="#email != null">
+		  <s:if test="%{email != '' && email != null}">
   			<a href="mailto:'<s:property value="email"/>'">
   			  <s:property value="email"/>
   			</a>
